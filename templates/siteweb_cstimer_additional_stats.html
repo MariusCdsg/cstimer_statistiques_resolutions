@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<!-- made thanks to (or only by) chat gpt -->
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- todo mieux comprendre cette ligne -->
+<!-- todo faire le css (automatiquement chat gpt) -->
+<title>HTML Elements Example</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- todo remove if it became useless (used for $)-->
+
+</head>
+<body>
+
+
+
+
+<!-- Text for the question -->
+{% if question_and_information %}
+
+
+<h3 id"text_question">{{question_and_information}}</h3>
+{% endif %}
+
+
+
+
+
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <input type="submit" value="Upload">
+</form>
+<hr>
+
+<!-- 
+Form 
+button for numerical answer
+I could do dynamic choise when overing each proposal (complicated, and still would need to have number for other things)
+
+todo make it function : 
+  -->
+  
+  <hr>
+<form method="POST" action="/answer_with_number">
+
+  <label for="numericInput">Enter a number:</label>
+  <input type="number" id="numericInput" name="numericInput" placeholder="Enter a number" autofocus>
+  
+  <input type="submit" value="Submit">
+  
+  
+</form>
+<hr>
+
+
+<!-- todo add a box for the matplotlib (idk how to upload it or anything) -->
+<h3>(image)</h3>
+
+<hr>
+<!-- Text for the answer (maybe it is just useless-->
+<h3 id"text_answer">Answer</h3>  <!-- todo make it invisible at the start ? -->
+
+
+<!-- todo remove after tests (or not because these are the test of features) -->
+
+
+<!-- Form for test interaction button, with interation -->
+
+<form method="POST" action="/increment">
+        <button type="submit" name="action" value="increment">Increment Counter</button>
+</form>
+<p>Counter: {{ counter }}</p>
+<p>Reponse réel fonction : {{ reponse_temps }} </p>
+
+<!-- Form for test interaction entry, with interaction -->
+
+<form method="POST" action="/greet">
+        <label for="name">Enter your name:</label>
+        <input type="text" id="name" name="name">
+        <button type="submit">Submit</button>
+    </form>
+    {% if greeting %}
+        <p>{{ greeting }}</p>
+	{% endif %}
+
+<!-- test for updating variables-->
+    <h1>Welcome to the Information Page</h1>
+    <p id="informationPlaceholder">{{ information }}</p>  <!-- todo change it so it is beautiful -->
+<script>
+    function updateInformation() {
+        $.ajax({
+            url: '/get_information',  // The URL to send the AJAX request to
+            type: 'GET',  // The HTTP method (GET in this case)
+            dataType: 'json',  // The expected data type of the response (JSON)
+            success: function(data) {  // Callback function for successful response
+                $('#informationPlaceholder').text(data.information);
+            },
+            error: function() {  // Callback function for error
+                console.log('Error fetching information.');
+            }
+        });
+    }
+
+    // Call the updateInformation function to fetch data initially
+    updateInformation();
+
+    // You can set up a timer to periodically update the information
+    setInterval(updateInformation, 1000);  // Update every 1 seconds
+</script>
+<!-- test for updating images simplest form todo remove after test (image simple dispayl :-->
+<!DOCTYPE html>p
+<html>
+<head>
+    <title>Image Display</title>
+</head>
+<body>
+    <h1>Image from Server</h1>
+    <img src="{{ image_url }}" alt="Image from Server">
+</body>
+</html>
+
+
+
+<!-- test for updating images :-->
+
+
+    <h1>Image from Server</h1>
+    <img src="{{ image_url }}" alt="Image from Server">
+
+
+</body>
+</html>
