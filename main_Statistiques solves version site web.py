@@ -573,8 +573,8 @@ def sum_x_last_solves(listes_resolutions, nom_session):
     temps_passe(listes_resolutions_a_additionner, nom_session)
 
 ### small functions
-import time
-
+# import time
+time.sleep(1)
 number_response = config.number_response
 question_and_information = config.question_and_information
 def isfloat(num):
