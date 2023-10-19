@@ -282,7 +282,7 @@ def trouver_le_plus_commun(session, nom="3 par 3"):  # todo change needed
     reponse_est_nombre_valide = False  # un nombre entier positif ou bien 0.1 ou 0.01
     while not (reponse_est_nombre_valide):
 
-        reponse = input_on_web("Tapez la précision des encadrements.")
+        reponse = input_number_on_web("Tapez la précision des encadrements.")
 
         # if not (isfloat(reponse)):
         #     print_on_web("Attention, il faut tapez un nombre.")
