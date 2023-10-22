@@ -11,8 +11,17 @@ import time
 import config
 import os
 
+import matplotlib.pyplot as plt  # todo maybe not pyplot
+from io import BytesIO
+from flask import send_file
+
+
 number_response = config.number_response
 question_and_information = config.question_and_information
+
+
+
+
 
 
 # todo get rid of that function (useless for the web site)
@@ -724,7 +733,18 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     # return render_template(NAME_FOLDER_HTML, message='Hello, Flask with Custom Template!')
-    return render_template(NAME_FOLDER_HTML)
+    # Create a Matplotlib figure
+    fig, ax = plt.subplots()
+    ax.plot([1, 2, 3, 4], [10, 5, 2, 7])
+
+    # Save the figure to a BytesIO object
+    output = BytesIO()
+    plt.savefig(output, format='png')
+    output.seek(0)
+
+    # Render the template with the Matplotlib plot
+    return send_file(output, mimetype='image/png')
+    # return render_template(NAME_FOLDER_HTML)
 
 
 
@@ -778,10 +798,15 @@ def upload_file():
         return render_template(NAME_FOLDER_HTML, question_and_information=question_and_information)
 
     # generate_statistiques_folder_on_web(file_text)
+    print_on_web("enterring generating, never leaving it ?")
     generer_statistiques_fichier(file_text)
-
+    print_on_web("actually living the function I think ?")
     # Do something with the file
-    return render_template(NAME_FOLDER_HTML, question_and_information=question_and_information)
+
+
+
+
+    # return render_template(NAME_FOLDER_HTML, question_and_information=question_and_information)
 
 
 
