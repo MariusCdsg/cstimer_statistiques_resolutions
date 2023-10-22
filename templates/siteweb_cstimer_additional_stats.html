@@ -130,7 +130,9 @@ todo make it function :
 	<!-- test for updating images : (#2)-->
 
 	<h1>Matplotlib Plot</h1>
-    <img src="{{ url_for('generate_plot') }}" alt="Matplotlib Plot">
+	{% if generate_plot %}
 
+    <img src="{{ url_for('generate_plot') }}" alt="Matplotlib Plot">
+    {% endif %}
 </body>
 </html>

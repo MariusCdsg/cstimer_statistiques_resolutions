@@ -733,18 +733,8 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     # return render_template(NAME_FOLDER_HTML, message='Hello, Flask with Custom Template!')
-    # Create a Matplotlib figure
-    fig, ax = plt.subplots()
-    ax.plot([1, 2, 3, 4], [10, 5, 2, 7])
 
-    # Save the figure to a BytesIO object
-    output = BytesIO()
-    plt.savefig(output, format='png')
-    output.seek(0)
-
-    # Render the template with the Matplotlib plot
-    return send_file(output, mimetype='image/png')
-    # return render_template(NAME_FOLDER_HTML)
+    return render_template(NAME_FOLDER_HTML)
 
 
 
@@ -803,8 +793,17 @@ def upload_file():
     print_on_web("actually living the function I think ?")
     # Do something with the file
 
+    # Create a Matplotlib figure
+    fig, ax = plt.subplots()
+    ax.plot([1, 2, 3, 4], [10, 5, 2, 7])
 
+    # Save the figure to a BytesIO object
+    output = BytesIO()
+    plt.savefig(output, format='png')
+    output.seek(0)
 
+    # Render the template with the Matplotlib plot
+    return send_file(output, mimetype='image/png')
 
     # return render_template(NAME_FOLDER_HTML, question_and_information=question_and_information)
 
