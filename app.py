@@ -720,14 +720,12 @@ NAME_FOLDER_HTML = 'siteweb_cstimer_additional_stats.html'
 
 
 
+counter = 0
+reponse_temps = ""
+greeting = ""
 
-# todo clean up after tests
 from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
-# todo pour l'instant je l'ai enlevé du fichier templates
-
-
-
 
 
 @app.route('/')
@@ -737,19 +735,11 @@ def index():
     return render_template(NAME_FOLDER_HTML)
 
 
-
-
-
-
-counter = 0
-reponse_temps = ""
-greeting = ""
-
-
 @app.route('/answer_with_number', methods=['GET', 'POST'])
 def answer_with_number():
     global number_response
     # Get the value from the form input field
+
     numeric_input = request.form.get('numericInput')
 
     try:
@@ -765,8 +755,6 @@ def answer_with_number():
         # return "Invalid input. Please enter a numeric value."
 
         return render_template(NAME_FOLDER_HTML)
-
-
 
 
 @app.route('/upload', methods=['POST'])
@@ -800,61 +788,12 @@ def upload_file():
     # return render_template(NAME_FOLDER_HTML, question_and_information=question_and_information)
 
 
-
-# todo remove at the end, test for basic features
-
-@app.route('/increment', methods=['POST'])
-def increment_counter():
-    global counter
-    global reponse_temps
-    global greeting
-    global file_text  # todo fixer le problème : c juste que ça get pas updated jsp pk
-    print(f"the file is idk : {file_text}")
-
-    if file_text:
-        print_on_web("Starting to generate statistiques")
-        config.update_config(question_and_information, number_response)
-        generer_statistiques_fichier("test ahah ne fonctionne aps ")
-    else:
-        print(f"the file is empty : {file_text}")
-        print_on_web("Impossible de commencer à faire les statistiques")
-
-    if request.form['action'] == 'increment':
-        counter += 1
-
-        session_oh = [103.234, 142.401, 123.232, 81.133, 91.865, 84.686, 105.236, 56.998, 55.495, 67.108, 77.774, 84.638, 52.536, 49.88, 64.632, 63.243, 59.506, 73.62, 85.25, 71.696, 76.454, 74.5, 88.035, 57.475, 67.741, 89.762, 58.063, 57.884, 66.01, 52.879, 68.51, 74.831, 78.811, 36.23, 52.739, 55.092, 59.611, 45.422, 61.495, 40.241, 47.834, 55.781, 54.87, 61.058, 64.921, 52.197, 66.445, 58.395, 66.529, 44.7, 46.984, 49.322, 46.729, 48.15, 59.566, 57.847, 36.604, 44.943, 42.653, 45.278, 48.782, 51.818, 39.759, 33.607, 39.392, 52.241, 50.155, 46.339, 54.361, 55.544, 51.132, 44.129, 46.112, 35.683, 46.726, 44.267, 49.405, 39.096, 45.514, 41.96, 58.605, 61.069, 27.08, 46.809, 36.282, 42.088, 40.964, 31.939, 34.761, 40.519, 32.668, 47.418, 36.85, 46.534, 70.7, 37.989, 36.446, 40.281, 47.284, 39.304, 43.297, 40.844, 36.73, 42.8, 27.51, 55.93, 35.94, 28.81, 35.98, 42.41, 41.05, 32.44, 64.4, 32.62, 32.44, 39.76, 35.57, 35.38, 39.82, 59.49, 36.91, 40.29, 37.7, 66.06, 57.1, 38.67, 32.63, 34.67, 38.21, 53.55, 39.34, 36.84, 43.38, 27.66, 35.52, 25.04, 31.14, 36.81, 32.17, 31.23, 48.87, 41.47, 45.28, 30.09, 43.32, 33.44, 37.62, 27.58, 38.08, 49.48, 37.79, 35.2, 28.62, 31.29, 32.34, 29.12, 35.79, 33.62, 28.99, 43.81, 36.65, 27.13, 35.35, 22.26, 30.84, 27.96, 53.25, 38.5, 23.04, 27.48, 27.73, 30.43, 41.06, 34.58, 28.31, 32.88, 28.4, 35.53, 27.48, 40.09, 39.66, 42.89, 29.69, 29.18, 31.05, 32.12, 28.2, 31.48, 35.46, 30.91, 33.31, 31.64, 26.08, 28.79, 24.84, 35.64, 28.12, 25.14, 28.28, 39.44, 34.89, 26.32, 57.78, 30.49, 20.22, 30.55, 28.03, 27.63, 31.25, 31.5, 27.69, 34.84, 34.26, 83.405, 40.41]
-
-        reponse_temps = temps_passe(session_oh, "oh session")
-        print(f"La réponse est : {reponse_temps}")
-        # je peux faire d'autres trucs, genre des fonctions, et je peux modifier une variable
-    # elif request.form['action'] == 'greet':
-    #     name = request.form['name']
-    #     greeting = f"Hello, {name}!"
-
-    print(f"greeting = {greeting}, counter = {counter}, reponse_temps = {reponse_temps}")
-
-    # todo trouver un moyen de changer le paramètre de la fonction pour qu'il prennent le fichier (if exist)
-    return render_template(NAME_FOLDER_HTML, greeting=greeting, counter=counter, reponse_temps=reponse_temps)
-
-
-
 @app.route('/get_information', methods=['GET'])
 def get_information():
     global question_and_information  # todo see if I have to keep global (I think so)
     information = question_and_information
     print("I am using get_information. information = ", information)
     return jsonify({'information': information})
-
-
-
-
-
-# todo finish or remove after tests ACUTALY REMOVE
-@app.route('/generate_graph')
-def generate_and_serve_graph():
-    generate_matplotlib_graph()  # Generate the Matplotlib graph
-    graph_url = '/static/graph.png'  # URL to the saved graph image
-    return render_template('index.html', graph_url=graph_url)
 
 
 if __name__ == '__main__':
