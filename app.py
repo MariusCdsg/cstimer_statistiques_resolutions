@@ -771,27 +771,19 @@ def answer_with_number():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    global question_and_information  # todo see if I have to keep global (I think so)
     file = request.files['file']
     try:  # reading the text file
         file_text = file.read().decode('utf-8')
         if file_text != "":
-            question_and_information += "\nFile downloaded successfully"
+            print_on_web("the file is not empty")
         else:
-            question_and_information += "\nFile empty"
-            return render_template(NAME_FOLDER_HTML, question_and_information=question_and_information)
-
+            print_on_web("the file is empty")
     except Exception as e:
 
         print_on_web(e)
-        question_and_information += "\nError reading file"
         return render_template(NAME_FOLDER_HTML, question_and_information=question_and_information)
 
-    # generate_statistiques_folder_on_web(file_text)
-    print_on_web("enterring generating, never leaving it ?")
     generer_statistiques_fichier(file_text)
-    print_on_web("actually living the function I think ?")
-    # Do something with the file
 
     # Create a Matplotlib figure
     fig, ax = plt.subplots()
@@ -857,7 +849,7 @@ def get_information():
 
 
 
-# todo finish or remove after tests
+# todo finish or remove after tests ACUTALY REMOVE
 @app.route('/generate_graph')
 def generate_and_serve_graph():
     generate_matplotlib_graph()  # Generate the Matplotlib graph
