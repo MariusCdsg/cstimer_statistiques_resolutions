@@ -688,41 +688,6 @@ def input_number_on_web(text):
 NAME_FOLDER_HTML = 'siteweb_cstimer_additional_stats.html'
 
 
-# from flask import Flask, send_file, render_template
-#
-# app = Flask(__name__)
-#
-# @app.route('/')
-# def serve_image():
-#     # image_path = r'D:\docs provisoires\Autre\vidéos_montage\smurf_cat_cubing_mosaique\imageonline-co-pixelated.jpg'
-#     image_path = 'static/imageonline-co-pixelated.jpg'  # Path to your image
-#     return render_template(NAME_FOLDER_HTML, image_path=image_path)
-#
-# if __name__ == '__main__':
-#     app.run()
-#
-# # todo remove after test (image simple dispayl)
-# from flask import Flask, render_template
-#
-# app = Flask(__name__)
-#
-# @app.route('/')
-# def index():
-#     # You can pass the image URL or other data to the template here
-#     # image_url = r'D:\docs provisoires\Autre\vidéos montage\smurf cat cubing mosaique\imageonline-co-pixelated (2).jpg'  # Replace with the actual image URL
-#     image_url = r'D:\docs provisoires\Autre\vidéos_montage\smurf_cat_cubing_mosaique\imageonline-co-pixelated.jpg'  # Replace with the actual image URL
-#     return render_template(NAME_FOLDER_HTML, image_url=image_url)
-#
-#
-#
-# if __name__ == '__main__':
-#     app.run(debug=True)
-
-
-
-counter = 0
-reponse_temps = ""
-greeting = ""
 
 from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
@@ -790,7 +755,6 @@ def upload_file():
 
 @app.route('/get_information', methods=['GET'])
 def get_information():
-    global question_and_information  # todo see if I have to keep global (I think so)
     information = question_and_information
     print("I am using get_information. information = ", information)
     return jsonify({'information': information})
