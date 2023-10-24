@@ -562,14 +562,12 @@ def mo10_bo3(liste_resolutions):
     print_on_web(f"La moyenne des 10 derniers bo3 est de {moyenne_tous_bo3}")
 
 
-    # while True:  # tant que l'utilisateur n'a pas bien répondu
 
-    # améliorer la fonction (ajouter une demande, ...)
-    nombre_bo3_enleve = 4  # on supprime x solves les plus nulles et x meilleures solves ( on garde 10 - 2*x sovles )
-    liste_chaque_bo3 = sorted(liste_chaque_bo3)
-    liste_elaguee_bo3 = liste_chaque_bo3[nombre_bo3_enleve: len(liste_chaque_bo3)-nombre_bo3_enleve]
-    moyenne_elague_bo3 = sum(liste_elaguee_bo3) / len(liste_elaguee_bo3)
-    print_on_web(f"La moyenne elaguée en gardant {10 - nombre_bo3_enleve * 2} bo3 est de {moyenne_elague_bo3} s.")
+    enlever_bo3 = lambda nombre_bo3_enleve: sum(sorted(liste_chaque_bo3)[nombre_bo3_enleve: len(liste_chaque_bo3) - nombre_bo3_enleve])/len(liste_chaque_bo3 - 2*nombre_bo3_enleve)
+    nombre_bo3_enleve = 4
+    print_on_web(f"La moyenne élaguée en gardant {10 - nombre_bo3_enleve * 2} bo3 est de {enlever_bo3(nombre_bo3_enleve)} s.")
+    nombre_bo3_enleve = 2
+    print_on_web(f"La moyenne élaguée en enlevant le pire et le meilleur temps est de {enlever_bo3(nombre_bo3_enleve)} secondes.")
 
     return moyenne_tous_bo3
 
@@ -646,6 +644,7 @@ def ask_something(question, condition):
 
 ### les fonctions web ###
 def print_on_web(text):
+    """This function prints the text on the web."""
     global question_and_information
 
     # testing type of text (we have to convert it to string)
@@ -667,16 +666,17 @@ def print_on_web(text):
     # function get_information automatically sends the information
 
 
-def input_number_on_web(text):
+def input_number_on_web(text) -> int:
+    """This function asks the user a number."""
     global number_response
 
     print_on_web(text)
 
-    number_response = None # reseting the variable, to wait until it changes
+    number_response = None  # reseting the variable, to wait until it changes
     while not(type(number_response) == int):
         time.sleep(0.1)
         print("waiting for input")
-    print("good, number_response = ", number_response)
+
     copy_number_response = number_response
     return copy_number_response
 
@@ -702,6 +702,7 @@ def index():
 
 @app.route('/answer_with_number', methods=['GET', 'POST'])
 def answer_with_number():
+    """This function is called when the user submits the form, containing a number."""
     global number_response
     # Get the value from the form input field
 
@@ -755,6 +756,7 @@ def upload_file():
 
 @app.route('/get_information', methods=['GET'])
 def get_information():
+    """This function uses the global variables to send the information to the client. It is called by the client every second."""
     information = question_and_information
     print("I am using get_information. information = ", information)
     return jsonify({'information': information})
