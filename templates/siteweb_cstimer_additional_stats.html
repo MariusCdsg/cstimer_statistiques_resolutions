@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- todo mieux comprendre cette ligne -->
 <!-- todo faire le css (automatiquement chat gpt) -->
 <title>HTML Elements Example</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- todo remove if it became useless (used for $)-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- used for $-->
 
 </head>
 <body>
@@ -54,35 +54,7 @@ todo make it function :
 <hr>
 
 
-<!-- todo add a box for the matplotlib (idk how to upload it or anything) -->
-<h3>(image)</h3>
 
-<hr>
-<!-- Text for the answer (maybe it is just useless-->
-<h3 id"text_answer">Answer</h3>  <!-- todo make it invisible at the start ? -->
-
-
-<!-- todo remove after tests (or not because these are the test of features) -->
-
-
-<!-- Form for test interaction button, with interation -->
-
-<form method="POST" action="/increment">
-        <button type="submit" name="action" value="increment">Increment Counter</button>
-</form>
-<p>Counter: {{ counter }}</p>
-<p>Reponse réel fonction : {{ reponse_temps }} </p>
-
-<!-- Form for test interaction entry, with interaction -->
-
-<form method="POST" action="/greet">
-        <label for="name">Enter your name:</label>
-        <input type="text" id="name" name="name">
-        <button type="submit">Submit</button>
-    </form>
-    {% if greeting %}
-        <p>{{ greeting }}</p>
-	{% endif %}
 
 <!-- test for updating variables-->
     <h1>Welcome to the Information Page</h1>
@@ -117,7 +89,7 @@ todo make it function :
 
     <h1>Image from Server</h1>
     <img src="{{ image_url }}" alt="Image from Server">
-	<!-- test for updating images : (#2)-->
+<!-- test for updating images : (#2)-->
 
 	<h1>Matplotlib Plot</h1>
 	{% if generate_plot %}
