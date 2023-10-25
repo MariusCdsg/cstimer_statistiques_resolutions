@@ -693,11 +693,13 @@ from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 
 
+
+
 @app.route('/')
 def index():
-    # return render_template(NAME_FOLDER_HTML, message='Hello, Flask with Custom Template!')
-
-    return render_template(NAME_FOLDER_HTML)
+    # You can pass the image URL or other data to the template here
+    image_url = r'static/imageonline-co-pixelated.jpg'  # Replace with the actual image URL
+    return render_template(NAME_FOLDER_HTML, image_url=image_url)
 
 
 @app.route('/answer_with_number', methods=['GET', 'POST'])
