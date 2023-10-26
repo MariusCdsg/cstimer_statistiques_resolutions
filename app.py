@@ -685,11 +685,14 @@ def input_number_on_web(text) -> int:
 
 
 ### flask :
+
 NAME_FOLDER_HTML = 'siteweb_cstimer_additional_stats.html'
 
 
 
 from flask import Flask, render_template, request, jsonify
+import base64
+
 app = Flask(__name__)
 
 
@@ -741,6 +744,9 @@ def upload_file():
 
     generer_statistiques_fichier(file_text)
 
+    print_on_web("stats done")
+
+
     # Create a Matplotlib figure
     fig, ax = plt.subplots()
     ax.plot([1, 2, 3, 4], [10, 5, 2, 7])
@@ -751,6 +757,7 @@ def upload_file():
     output.seek(0)
 
     # Render the template with the Matplotlib plot
+    print_on_web("thing generated")
     return send_file(output, mimetype='image/png')
 
     # return render_template(NAME_FOLDER_HTML, question_and_information=question_and_information)
@@ -762,6 +769,26 @@ def get_information():
     information = question_and_information
     print("I am using get_information. information = ", information)
     return jsonify({'information': information})
+
+
+
+# @app.route('/generate_plot', methods=['POST'])
+# def generate_plot():
+#     # Generate a Matplotlib plot
+#     plt.plot([1, 2, 3, 4, 5])
+#     plt.title('Sample Plot')
+#
+#     # Save the plot as a PNG image
+#     img_buf = BytesIO()
+#     plt.savefig(img_buf, format='png')
+#     img_buf.seek(0)
+#
+#     # Convert the image data to base64
+#     img_base64 = base64.b64encode(img_buf.read()).decode('utf-8')
+#
+#     return jsonify({'plot': img_base64})
+
+
 
 
 if __name__ == '__main__':
