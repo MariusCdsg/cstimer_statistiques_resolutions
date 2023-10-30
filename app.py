@@ -562,8 +562,9 @@ def mo10_bo3(liste_resolutions):
     print_on_web(f"La moyenne des 10 derniers bo3 est de {moyenne_tous_bo3}")
 
 
-    enlever_bo3 = lambda nombre_bo3_enleve: sum(sorted(liste_chaque_bo3)[nombre_bo3_enleve: len(liste_chaque_bo3) - nombre_bo3_enleve])/(len(liste_chaque_bo3) - 2*nombre_bo3_enleve)
+    enlever_bo3 = lambda nombre_bo3_enleve: sum(sorted(liste_chaque_bo3)[nombre_bo3_enleve//2: len(liste_chaque_bo3) - nombre_bo3_enleve//2])/(len(liste_chaque_bo3) - 2*nombre_bo3_enleve)
 
+    print_on_web(f"les bo3 gardé avec le moins et le meilleur temps sont {sorted(liste_chaque_bo3)[1: len(liste_chaque_bo3) - 1]} secondes.")
     nombre_bo3_enleve = 4
     print_on_web(f"La moyenne élaguée en gardant {10 - nombre_bo3_enleve * 2} bo3 est de {enlever_bo3(nombre_bo3_enleve)} s.")
     nombre_bo3_enleve = 2
@@ -659,7 +660,7 @@ def print_on_web(text):
 
     else:
         print(text)
-        print_on_web("text is not a string")
+        print_on_web("Error of print_on_web : text is not a string")
         raise ValueError  # if the text is not a string
 
     print(text)
@@ -748,21 +749,22 @@ def upload_file():
 
 
     # Create a Matplotlib figure
-    fig, ax = plt.subplots()
-    ax.plot([1, 2, 3, 4], [10, 5, 2, 7])
-
-    # Save the figure to a BytesIO object
-    output = BytesIO()
-    plt.savefig(output, format='png')
-    output.seek(0)
-
-    # Render the template with the Matplotlib plot
-    print_on_web("thing generated")
-    return send_file(output, mimetype='image/png')
+    # fig, ax = plt.subplots()
+    # ax.plot([1, 2, 3, 4], [10, 5, 2, 7])
+    #
+    # # Save the figure to a BytesIO object
+    # output = BytesIO()
+    # plt.savefig(output, format='png')
+    # output.seek(0)
+    #
+    # # Render the template with the Matplotlib plot
+    # print_on_web("thing generated")
+    # return send_file(output, mimetype='image/png')
 
     # return render_template(NAME_FOLDER_HTML, question_and_information=question_and_information)
 
 
+@app.route('/get_information', methods=['GET'])
 @app.route('/get_information', methods=['GET'])
 def get_information():
     """This function uses the global variables to send the information to the client. It is called by the client every second."""
