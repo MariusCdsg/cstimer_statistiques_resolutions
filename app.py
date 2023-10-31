@@ -562,11 +562,10 @@ def mo10_bo3(liste_resolutions):
     print_on_web(f"La moyenne des 10 derniers bo3 est de {moyenne_tous_bo3}")
 
 
-    enlever_bo3 = lambda nombre_bo3_enleve: sum(sorted(liste_chaque_bo3)[nombre_bo3_enleve//2: len(liste_chaque_bo3) - nombre_bo3_enleve//2])/(len(liste_chaque_bo3) - 2*nombre_bo3_enleve)
+    enlever_bo3 = lambda nombre_bo3_enleve: sum(sorted(liste_chaque_bo3)[nombre_bo3_enleve//2: len(liste_chaque_bo3) - nombre_bo3_enleve//2])/(len(liste_chaque_bo3) - nombre_bo3_enleve)
 
-    print_on_web(f"les bo3 gardé avec le moins et le meilleur temps sont {sorted(liste_chaque_bo3)[1: len(liste_chaque_bo3) - 1]} secondes.")
-    nombre_bo3_enleve = 4
-    print_on_web(f"La moyenne élaguée en gardant {10 - nombre_bo3_enleve * 2} bo3 est de {enlever_bo3(nombre_bo3_enleve)} s.")
+    nombre_bo3_enleve = 8
+    print_on_web(f"La moyenne élaguée en gardant {10 - nombre_bo3_enleve} bo3 est de {enlever_bo3(nombre_bo3_enleve)} s.")
     nombre_bo3_enleve = 2
     print_on_web(f"La moyenne élaguée en enlevant le pire et le meilleur temps est de {enlever_bo3(nombre_bo3_enleve)} secondes.")
 
