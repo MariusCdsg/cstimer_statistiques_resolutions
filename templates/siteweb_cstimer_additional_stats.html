@@ -98,9 +98,11 @@ todo make it function :
     {% endif %}
 	
 	
-	<!-- test for updating images : (#3)
+	<!-- test for updating images : (#3)-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+	while (true) {
+  try {
     $(document).ready(function () {
         $("form").submit(function (event) {
             event.preventDefault();
@@ -110,7 +112,13 @@ todo make it function :
             });
         });
     });
-</script>-->
+  } catch (error) {
+    console.error('An error occurred:', error.message);
+    break; // Exit the loop when an error is caught
+  }
+}
+
+</script>
 
 <h1>Generate Matplotlib Plot</h1>
     <form method="POST" action="/generate_plot">
