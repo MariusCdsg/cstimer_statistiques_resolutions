@@ -789,8 +789,26 @@ def get_information():
 #
 #     return jsonify({'plot': img_base64})
 
+from flask import Flask, render_template, Response
+import matplotlib.pyplot as plt
+from io import BytesIO
+import base64
+@app.route('/plot')
+def plot():
+    # Generate the Matplotlib plot here (modify this part according to your needs)
+    plt.figure()
+    plt.plot([1, 2, 3, 4], [10, 11, 12, 13])
 
+    # Save the plot to a BytesIO object
+    img_stream = BytesIO()
+    plt.savefig(img_stream, format='png')
+    img_stream.seek(0)
 
+    # Encode the image as base64 to send to the client
+    img_data = base64.b64encode(img_stream.read()).decode()
+
+    plt.close()
+    return img_data
 
 if __name__ == '__main__':
     app.run(debug = True)

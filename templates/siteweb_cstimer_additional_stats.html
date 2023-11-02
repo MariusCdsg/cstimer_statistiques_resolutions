@@ -98,7 +98,7 @@ todo make it function :
     {% endif %}
 	
 	
-	<!-- test for updating images : (#3)-->
+	<!-- test for updating images : (#3)
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	while (true) {
@@ -118,7 +118,24 @@ todo make it function :
   }
 }
 
-</script>
+</script>-->
+<div id="plot-container">
+        <img id="plot-image" src="{{ url_for('plot') }}" alt="Matplotlib Plot">
+    </div>
+    <button id="refresh-plot">Refresh Plot</button>
+
+    <script>
+        document.getElementById('refresh-plot').addEventListener('click', function () {
+            refreshPlot();
+        });
+
+        function refreshPlot() {
+            var imgElement = document.getElementById('plot-image');
+            imgElement.src = "{{ url_for('plot') }}" + '?' + new Date().getTime();
+        }
+    </script>
+
+
 
 <h1>Generate Matplotlib Plot</h1>
     <form method="POST" action="/generate_plot">
