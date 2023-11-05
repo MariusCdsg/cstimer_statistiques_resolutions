@@ -167,8 +167,7 @@ def choix_session(informations_chaque_session, liste_temps_chaque_session, liste
             session_statistiques_temps_et_dnf = session_statistiques_temps + session_statistiques_dnf
             session_statistiques_dnf_comme_inf = liste_chaque_session_temps_avec_dnf_comme_inf[index_session_statistiques]
 
-    print("les sessions sont :")
-    print(session_statistiques_dnf_comme_inf)
+
     return (nom_session_statistiques, session_statistiques_temps, session_statistiques_temps_et_dnf, session_statistiques_dnf_comme_inf)
 
 def choix_fonction(nom_session_statistiques, session_statistiques_temps, session_statistiques_temps_et_dnf, session_statistiques_dnf_comme_inf):
@@ -580,10 +579,7 @@ def sum_x_last_solves(listes_resolutions, nom_session):
     temps_passe(listes_resolutions_a_additionner, nom_session)
 
 ### small functions
-# import time
-time.sleep(1)
-number_response = config.number_response
-question_and_information = config.question_and_information
+
 def isfloat(num):
     """The function test if the string is a number (a float or integer...). See https://www.programiz.com/python-programming/examples/check-string-number"""
     try:
@@ -691,7 +687,7 @@ NAME_FOLDER_HTML = 'siteweb_cstimer_additional_stats.html'
 
 
 from flask import Flask, render_template, request, jsonify
-import base64
+# import base64
 
 app = Flask(__name__)
 
@@ -741,26 +737,13 @@ def upload_file():
 
         print_on_web(e)
         return render_template(NAME_FOLDER_HTML, question_and_information=question_and_information)
+    print_on_web("the file has been uploaded")
 
     generer_statistiques_fichier(file_text)
+    print_on_web("The stats have been generated")
+    return render_template(NAME_FOLDER_HTML, question_and_information=question_and_information)
 
-    print_on_web("stats done")
 
-
-    # Create a Matplotlib figure
-    # fig, ax = plt.subplots()
-    # ax.plot([1, 2, 3, 4], [10, 5, 2, 7])
-    #
-    # # Save the figure to a BytesIO object
-    # output = BytesIO()
-    # plt.savefig(output, format='png')
-    # output.seek(0)
-    #
-    # # Render the template with the Matplotlib plot
-    # print_on_web("thing generated")
-    # return send_file(output, mimetype='image/png')
-
-    # return render_template(NAME_FOLDER_HTML, question_and_information=question_and_information)
 
 
 @app.route('/get_information', methods=['GET'])
@@ -772,7 +755,7 @@ def get_information():
     return jsonify({'information': information})
 
 
-
+# todo la fonction pourrait peut etre fonctionner à voir
 # @app.route('/generate_plot', methods=['POST'])
 # def generate_plot():
 #     # Generate a Matplotlib plot
@@ -789,26 +772,7 @@ def get_information():
 #
 #     return jsonify({'plot': img_base64})
 
-from flask import Flask, render_template, Response
-import matplotlib.pyplot as plt
-from io import BytesIO
-import base64
-@app.route('/plot')
-def plot():
-    # Generate the Matplotlib plot here (modify this part according to your needs)
-    plt.figure()
-    plt.plot([1, 2, 3, 4], [10, 11, 12, 13])
 
-    # Save the plot to a BytesIO object
-    img_stream = BytesIO()
-    plt.savefig(img_stream, format='png')
-    img_stream.seek(0)
-
-    # Encode the image as base64 to send to the client
-    img_data = base64.b64encode(img_stream.read()).decode()
-
-    plt.close()
-    return img_data
 
 if __name__ == '__main__':
     app.run(debug = True)

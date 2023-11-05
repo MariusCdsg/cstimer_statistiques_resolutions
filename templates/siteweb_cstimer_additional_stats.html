@@ -89,6 +89,7 @@ todo make it function :
 
     <h1>Image from Server</h1>
     <img src="{{ image_url }}" alt="Image from Server">-->
+
 <!-- test for updating images : (#2)-->
 
 	<h1>Matplotlib Plot</h1>
@@ -97,52 +98,8 @@ todo make it function :
     <img src="{{ url_for('generate_plot') }}" alt="Matplotlib Plot">
     {% endif %}
 	
-	
-	<!-- test for updating images : (#3)
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-	while (true) {
-  try {
-    $(document).ready(function () {
-        $("form").submit(function (event) {
-            event.preventDefault();
-            $.post("/generate_plot", function (data) {
-                // Display the generated plot in the 'plot-container' div
-                $("#plot-container").html("<img src='data:image/png;base64," + data.plot + "'>");
-            });
-        });
-    });
-  } catch (error) {
-    console.error('An error occurred:', error.message);
-    break; // Exit the loop when an error is caught
-  }
-}
-
-</script>-->
-<div id="plot-container">
-        <img id="plot-image" src="{{ url_for('plot') }}" alt="Matplotlib Plot">
-    </div>
-    <button id="refresh-plot">Refresh Plot</button>
-
-    <script>
-        document.getElementById('refresh-plot').addEventListener('click', function () {
-            refreshPlot();
-        });
-
-        function refreshPlot() {
-            var imgElement = document.getElementById('plot-image');
-            imgElement.src = "{{ url_for('plot') }}" + '?' + new Date().getTime();
-        }
-    </script>
+<!-- test for updating images : (#3 and #4 removed)-->
 
 
-
-<h1>Generate Matplotlib Plot</h1>
-    <form method="POST" action="/generate_plot">
-        <input type="submit" value="Generate Plot">
-    </form>
-    <div id="plot-container">
-        <!-- The Matplotlib plot will be displayed here -->
-    </div>
 </body>
 </html>
