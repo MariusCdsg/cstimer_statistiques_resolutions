@@ -11,7 +11,7 @@ import time
 import config
 import os
 
-import matplotlib.pyplot as plt  # todo maybe not pyplot
+import matplotlib.pyplot as plt
 from io import BytesIO
 from flask import send_file
 
@@ -36,12 +36,12 @@ def obtenir_fichier(repertoire_enregistrement):
     if fichiers_tries:
         dernier_fichier_telecharge = os.path.join(repertoire_enregistrement, fichiers_tries[0])
         print("Dernier fichier téléchargé :", dernier_fichier_telecharge)
-        #todo afficher la date
+        # todo afficher la date ?
 
     else:
         print("Aucun fichier téléchargé dans le répertoire spécifié.")
 
-def obtenir_les_temps(sessions):  # todo no change needed
+def obtenir_les_temps(sessions):
     """Cette fonction prend en entrée une liste de sessions et renvoie trois listes : liste_temps_chaque_session, liste_dnf_chaque_session et liste_chaque_session_temps_avec_dnf_comme_inf.
     liste_temps_chaque_session contient les temps de résolution de chaque session.
     liste_dnf_chaque_session contient les temps de résolution "Did Not Finish" (DNF) de chaque session.
@@ -90,7 +90,8 @@ def obtenir_les_temps(sessions):  # todo no change needed
     return (liste_temps_chaque_session, liste_dnf_chaque_session, liste_chaque_session_temps_avec_dnf_comme_inf)
 
 
-def separer_sessions(donne_chaque_sessions, temps_chaque_sessions):  # todo no change needed
+def separer_sessions(donne_chaque_sessions, temps_chaque_sessions):
+
     """Cette fonction prend en entrée le contenu et les données de chaque session et renvoie une liste d'informations
     pour chaque session. Les informations de chaque session sont stockées sous la forme [nom_session, index_session]."""
     informations_chaque_session = [0] * len(
@@ -133,7 +134,7 @@ def choix_session(informations_chaque_session, liste_temps_chaque_session, liste
 
         try:  # parfois si aucun nom il peut y avoir un problème
 
-            print_on_web(f"{index_session + 1} : {informations_chaque_session[index_session][0]} <br>")  # todo fixer les problèmes, br does not function idk why
+            print_on_web(f"{index_session + 1} : {informations_chaque_session[index_session][0]} <br>")  # todo fixer les problèmes, br does not function idk why, it is all 1 line
             config.update_config(question_and_information, number_response)
 
 
@@ -238,7 +239,7 @@ def generer_statistiques_fichier(fichier_text):
     sessions = toutes_les_resolutions.split("\"session")  # todo fixer , car si j'écrit session cela fait planter
     sessions = sessions[1:]  # on enlève ce qui est avant la première session
 
-    liste_temps_chaque_session, liste_dnf_chaque_session, liste_chaque_session_temps_avec_dnf_comme_inf = obtenir_les_temps(sessions)    # todo no change needed
+    liste_temps_chaque_session, liste_dnf_chaque_session, liste_chaque_session_temps_avec_dnf_comme_inf = obtenir_les_temps(sessions)
 
     toutes_les_sessions_combinees_dnf_supprime = [solve for session in liste_temps_chaque_session for solve in session]  # liste de tous les temps, voir https://datascienceparichay.com/article/python-flatten-a-list-of-lists-to-a-single-list/
     toutes_les_sessions_combinees_dnf_comme_reussis = [solve for session in (liste_temps_chaque_session + liste_dnf_chaque_session) for solve in session]
@@ -687,6 +688,8 @@ NAME_FOLDER_HTML = 'siteweb_cstimer_additional_stats.html'
 
 
 from flask import Flask, render_template, request, jsonify
+from markupsafe import Markup
+
 # import base64
 
 app = Flask(__name__)
@@ -752,7 +755,7 @@ def get_information():
     """This function uses the global variables to send the information to the client. It is called by the client every second."""
     information = question_and_information
     print("I am using get_information. information = ", information)
-    return jsonify({'information': information})
+    return jsonify({'information': f"<p>{Markup(information)}</p>"})
 
 
 # todo la fonction pourrait peut etre fonctionner à voir
