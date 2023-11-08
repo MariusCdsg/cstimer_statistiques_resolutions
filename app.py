@@ -755,7 +755,7 @@ def get_information():
     """This function uses the global variables to send the information to the client. It is called by the client every second."""
     information = question_and_information
     print("I am using get_information. information = ", information)
-    return jsonify({'information': f"<p>{Markup(information)}</p>"})
+    return jsonify({'information': f"<p>{Markup(information)}</p>"})  #todo remove
 
 
 # todo la fonction pourrait peut etre fonctionner à voir
