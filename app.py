@@ -750,7 +750,6 @@ def upload_file():
 
 
 @app.route('/get_information', methods=['GET'])
-@app.route('/get_information', methods=['GET'])
 def get_information():
     """This function uses the global variables to send the information to the client. It is called by the client every second."""
     information = question_and_information
